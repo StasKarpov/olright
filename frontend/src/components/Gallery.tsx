@@ -46,7 +46,7 @@ const Carousel = ({ articles }: { articles: Array<ArticleEntity> }) => {
               src={toAbsoluteSrc(
                 currentArticle?.attributes?.Image?.data?.attributes?.url
               )}
-              className="object-cover w-full"
+              className="object-cover w-full h-full object-top"
             />
           </div>
           <div
