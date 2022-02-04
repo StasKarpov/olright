@@ -144,8 +144,8 @@ export const Release = ({
       <div
         className={`w-full relative ${
           big
-            ? "pt-[20%] md:pt-[35%] xl:pt-[20%] 2xl:pt-[30%]"
-            : "pt-[30%] md:pt-[40%] xl:pt-[30%] 2xl:pt-[35%]"
+            ? "pt-[30%] sm:pt-[25%] md:pt-[35%] xl:pt-[20%] 2xl:pt-[30%]"
+            : "pt-[35%] md:pt-[40%] xl:pt-[30%] 2xl:pt-[35%]"
         } bg-cover bg-center bg-no-repeat border-1 border-solid border-black`}
         style={bgImageStyle(release.attributes?.Image?.data?.attributes?.url)}
       >
@@ -156,23 +156,29 @@ export const Release = ({
             backdropFilter: "blur(300px)",
           }}
         >
-          <div className={`text-white ${big ? "ml-14 mt-8" : "ml-8 mt-3"}`}>
-            <div
-              className={`${
-                big ? "text-60" : "text-40"
-              } font-medium group-hover:font-bold`}
-            >
-              {release.attributes?.Title}
-            </div>
-            <div
-              className={`${
-                big ? "text-50" : "text-30"
-              } font-normal group-hover:font-semibold`}
-            >
-              {release.attributes?.Subtitle}
+          <div
+            className={`h-full flex flex-col justify-between text-white ${
+              big ? "ml-14 mt-8" : "ml-8 mt-3"
+            }`}
+          >
+            <div>
+              <div
+                className={`${
+                  big ? "text-60" : "text-40"
+                } font-medium group-hover:font-bold`}
+              >
+                {release.attributes?.Title}
+              </div>
+              <div
+                className={`${
+                  big ? "text-50" : "text-30"
+                } font-normal group-hover:font-semibold`}
+              >
+                {release.attributes?.Subtitle}
+              </div>
             </div>
             {big && (
-              <div className="text-xl font-normal text-white text-right mr-8">{`${getDaysAgo(
+              <div className="text-2xl font-normal text-white text-right mr-8 mb-12">{`${getDaysAgo(
                 release.attributes?.Date
               )} ${t("днi тому")}`}</div>
             )}
