@@ -67,7 +67,7 @@ const ArticleHeader = ({ article }: { article: ArticleEntity }) => {
     <>
       <div className="relative border-y-3 md:border-y-6 border-solid border-white relative w-full max-h-[70vh] overflow-hidden flex">
         <img
-          className="w-full"
+          className="w-full object-cover"
           src={toAbsoluteSrc(
             article.attributes?.Image?.data?.attributes?.url || ""
           )}

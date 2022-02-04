@@ -143,7 +143,9 @@ export const Release = ({
       ></div>
       <div
         className={`w-full relative ${
-          big ? "pt-[30%]" : "pt-[40%]"
+          big
+            ? "pt-[20%] md:pt-[35%] xl:pt-[20%] 2xl:pt-[30%]"
+            : "pt-[30%] md:pt-[40%] xl:pt-[30%] 2xl:pt-[35%]"
         } bg-cover bg-center bg-no-repeat border-1 border-solid border-black`}
         style={bgImageStyle(release.attributes?.Image?.data?.attributes?.url)}
       >

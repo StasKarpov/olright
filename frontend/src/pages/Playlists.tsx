@@ -137,7 +137,7 @@ const Playlist = ({ playlist }: { playlist?: PlaylistEntity }) => {
         style={bgImageStyle(playlist.attributes?.Image?.data?.attributes?.url)}
       ></div>
       <div
-        className={`w-full relative pt-[70%] bg-cover bg-center bg-no-repeat border-1 border-solid border-black`}
+        className={`w-full relative pt-[70%] xl:pt-[50%] 2xl:pt-[60%] bg-cover bg-center bg-no-repeat border-1 border-solid border-black`}
         style={bgImageStyle(playlist.attributes?.Image?.data?.attributes?.url)}
       >
         <div
