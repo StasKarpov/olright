@@ -31,11 +31,33 @@
     "Subtitle": {
       "type": "string"
     },
-    "Important": {
+    "Prior": {
       "type": "boolean"
     },
-    "Special": {
+    "Dark": {
       "type": "boolean"
+    },
+    "Hidden": {
+      "type": "boolean"
+    },
+    "MinimizeHeader": {
+      "type": "boolean"
+    },
+    "Date": {
+      "type": "date"
+    },
+    "BackgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "ArticleCssConfig": {
+      "type": "json"
     }
   }
 }

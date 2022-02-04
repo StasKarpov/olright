@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "releases",
+  "info": {
+    "singularName": "release",
+    "pluralName": "releases",
+    "displayName": "Release",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "Link": {
+      "type": "string"
+    },
+    "Date": {
+      "type": "date"
+    },
+    "Subtitle": {
+      "type": "string"
+    }
+  }
+}

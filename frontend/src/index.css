@@ -7,3 +7,149 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.dark {
+  background-color: black;
+}
+
+/* VARIABLES */
+
+:root {
+  --active-link-color: rgba(13, 8, 242, 1);
+  --article-container-background: "transparent";
+  --article-container-backdrop-filter: "none";
+  --app-container-background: "transparent";
+}
+
+#app-container {
+  background: var(--app-container-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#article-overlay-container {
+  background: var(--article-container-background);
+  backdrop-filter: var(--article-container-backdrop-filter);
+}
+
+/* CUSTOMIZATION */
+
+@layer base {
+  h1 {
+    @apply text-9xl;
+    @apply my-8;
+    @apply leading-15;
+  }
+  h2 {
+    @apply text-8xl;
+    @apply my-8;
+    @apply leading-15;
+  }
+  h3 {
+    @apply text-7xl;
+    @apply my-8;
+    @apply leading-15;
+  }
+  h4 {
+    @apply text-6xl;
+    @apply my-8;
+    @apply leading-15;
+  }
+  h5 {
+    @apply text-4xl;
+    @apply leading-15;
+  }
+  h6 {
+    @apply text-4xl;
+    @apply leading-15;
+  }
+
+  a {
+    @apply text-blue-700;
+    @apply hover:underline;
+  }
+}
+
+/* RESPONSIVE  */
+
+html {
+  font-size: 6px;
+}
+
+.w-gallery {
+  width: calc(100vw - 9rem);
+}
+
+.container {
+  max-width: calc(100vw - 6rem);
+}
+
+@media (min-width: 640px) {
+  html {
+    font-size: 7px;
+  }
+
+  .w-gallery {
+    width: calc(100vw - 9rem);
+  }
+
+  .container {
+    max-width: calc(100vw - 6rem);
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 8px;
+  }
+
+  .w-gallery {
+    width: calc(50vw + theme("screens.md") / 2 - 5rem);
+  }
+
+  .container {
+    max-width: calc(theme("screens.md") - 10rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 9px;
+  }
+
+  .w-gallery {
+    width: calc(50vw + theme("screens.lg") / 2 - 5rem);
+  }
+
+  .container {
+    max-width: calc(theme("screens.lg") - 10rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 9px;
+  }
+
+  .w-gallery {
+    width: calc(50vw + theme("screens.xl") / 2 - 5rem);
+  }
+
+  .container {
+    max-width: calc(theme("screens.xl") - 10rem);
+  }
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 14px;
+  }
+
+  .w-gallery {
+    width: calc(50vw + theme("screens.2xl") / 2 - 5rem);
+  }
+
+  .container {
+    max-width: calc(theme("screens.2xl") - 10rem);
+  }
+}

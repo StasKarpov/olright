@@ -4,14 +4,24 @@ export const ARTICLES_NORMAL = gql`
   query ArticlesNormal($offset: Int, $limit: Int) {
     articles(
       pagination: { start: $offset, limit: $limit }
-      filters: { or: [{ Special: { eq: false } }, { Special: { eq: null } }] }
+      filters: {
+        and: [
+          { or: [{ Prior: { eq: false } }, { Prior: { eq: null } }] }
+          { or: [{ Hidden: { eq: false } }, { Hidden: { eq: null } }] }
+        ]
+      }
     ) {
+      meta {
+        pagination {
+          total
+        }
+      }
       data {
         id
         attributes {
           Title
           Subtitle
-          Special
+          Prior
           Image {
             data {
               attributes {
@@ -25,18 +35,28 @@ export const ARTICLES_NORMAL = gql`
   }
 `;
 
-export const ARTICLES_SPECIAL = gql`
-  query ArticlesSpecial($offset: Int, $limit: Int) {
+export const ARTICLES_PRIOR = gql`
+  query ArticlesPrior($offset: Int, $limit: Int) {
     articles(
       pagination: { start: $offset, limit: $limit }
-      filters: { Special: { eq: true } }
+      filters: {
+        and: [
+          { Prior: { eq: true } }
+          { or: [{ Hidden: { eq: false } }, { Hidden: { eq: null } }] }
+        ]
+      }
     ) {
+      meta {
+        pagination {
+          total
+        }
+      }
       data {
         id
         attributes {
           Title
           Subtitle
-          Special
+          Prior
           Image {
             data {
               attributes {
@@ -59,10 +79,60 @@ export const ARTICLE = gql`
           Title
           Subtitle
           Content
+          Dark
+          Prior
+          MinimizeHeader
+          ArticleCssConfig
+          BackgroundImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
           Image {
             data {
               attributes {
                 url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const SPECIAL_ARTICLE = gql`
+  query SpecialArticle {
+    specialArticle {
+      data {
+        attributes {
+          article {
+            data {
+              attributes {
+                Title
+                Subtitle
+                Content
+                Dark
+                Prior
+                MinimizeHeader
+                ArticleCssConfig
+                Date
+                BackgroundImage {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+                Image {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
               }
             }
           }
