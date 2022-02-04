@@ -38,7 +38,7 @@ const Carousel = ({ releases }: { releases: Array<ReleaseEntity> }) => {
 
   return (
     <div>
-      <div className="sm:container mx-4 sm:mx-0 flex justify-between items-center my-40">
+      <div className="sm:container mx-4 sm:mx-auto flex justify-between items-center my-40">
         <div
           onClick={() => setCurrentIndex((prev) => prev - 1)}
           className="w-32 h-32 border sm:border-3 md:border-6 border-white border-solid text-white cursor-pointer hover:bg-white hover:text-black"

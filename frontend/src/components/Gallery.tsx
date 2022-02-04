@@ -35,13 +35,13 @@ const Carousel = ({ articles }: { articles: Array<ArticleEntity> }) => {
     <div>
       <div className="flex items-center w-full border-b sm:border-b-3 md:border-b-6 border-white border-solid">
         <div
-          className="group cursor-pointer relative w-gallery h-[70rem] md:h-[48rem]  border-r sm:border-r-3 md:border-r-6  border-white border-solid  bg-cover bg-no-repeat bg-center"
+          className="group cursor-pointer relative w-gallery h-[70rem] md:h-[52rem]  border-r sm:border-r-3 md:border-r-6  border-white border-solid  bg-cover bg-no-repeat bg-center"
           // style={bgImageStyle(
           //   currentArticle?.attributes?.Image?.data?.attributes?.url
           // )}
           onClick={() => navigate(`articles/${currentArticle.id}`)}
         >
-          <div className={`w-full h-full overflow-hidden flex bg-gray-300`}>
+          <div className={`w-full h-full overflow-hidden bg-gray-300`}>
             <Image
               src={toAbsoluteSrc(
                 currentArticle?.attributes?.Image?.data?.attributes?.url
@@ -50,7 +50,7 @@ const Carousel = ({ articles }: { articles: Array<ArticleEntity> }) => {
             />
           </div>
           <div
-            className="w-full h-[70rem] md:h-[48rem] absolute top-0"
+            className="w-full h-[70rem] md:h-[52rem] absolute top-0"
             style={{
               background:
                 "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)",

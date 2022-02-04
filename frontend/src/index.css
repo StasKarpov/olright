@@ -132,11 +132,11 @@ html {
   }
 
   .w-gallery {
-    width: calc(50vw + theme("screens.xl") / 2 - 5rem);
+    width: calc(50vw + theme("screens.xl") / 2 - 7.5rem);
   }
 
   .container {
-    max-width: calc(theme("screens.xl") - 10rem);
+    max-width: calc(theme("screens.xl") - 15rem);
   }
 }
 
