@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { LangProvider } from "./context/lang";
 import { TRANSLATION } from "./queries/translation";
 import Query from "./components/Query";
