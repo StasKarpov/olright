@@ -40,7 +40,9 @@ function App() {
                         <Route path="/articles" element={<Articles />}>
                           <Route path=":articleId" element={<Article />} />
                         </Route>
-                        <Route path="/special" element={<Special />} />
+                        <Route path="/special" element={<Special />}>
+                          <Route path=":articleId" element={<Article />} />
+                        </Route>
 
                         <Route path="/releases" element={<Releases />} />
                         <Route path="/playlists" element={<Playlists />} />

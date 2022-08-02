@@ -8,6 +8,7 @@ export const ARTICLES_NORMAL = gql`
         and: [
           { or: [{ Prior: { eq: false } }, { Prior: { eq: null } }] }
           { or: [{ Hidden: { eq: false } }, { Hidden: { eq: null } }] }
+          { or: [{ Special: { eq: false } }, { Special: { eq: null } }] }
         ]
       }
     ) {
@@ -29,6 +30,7 @@ export const ARTICLES_NORMAL = gql`
               }
             }
           }
+          updatedAt
         }
       }
     }
@@ -43,6 +45,7 @@ export const ARTICLES_PRIOR = gql`
         and: [
           { Prior: { eq: true } }
           { or: [{ Hidden: { eq: false } }, { Hidden: { eq: null } }] }
+          { or: [{ Special: { eq: false } }, { Special: { eq: null } }] }
         ]
       }
     ) {
@@ -64,6 +67,58 @@ export const ARTICLES_PRIOR = gql`
               }
             }
           }
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+
+export const ARTICLES_SPECIAL = gql`
+  query ArticlesSpecial($offset: Int, $limit: Int) {
+    articles(
+      pagination: { start: $offset, limit: $limit }
+      filters: { Special: { eq: true } }
+      sort: "updatedAt:desc"
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+      data {
+        id
+        attributes {
+          Title
+          Subtitle
+          Content
+          Dark
+          Prior
+          Special
+          ArticleCssConfig
+          BackgroundImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          Image {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          tags {
+            data {
+              id
+              attributes {
+                name
+              }
+            }
+          }
+          updatedAt
         }
       }
     }
@@ -81,7 +136,7 @@ export const ARTICLE = gql`
           Content
           Dark
           Prior
-          MinimizeHeader
+          Special
           ArticleCssConfig
           BackgroundImage {
             data {
@@ -97,45 +152,15 @@ export const ARTICLE = gql`
               }
             }
           }
-        }
-      }
-    }
-  }
-`;
-
-export const SPECIAL_ARTICLE = gql`
-  query SpecialArticle {
-    specialArticle {
-      data {
-        attributes {
-          article {
+          tags {
             data {
+              id
               attributes {
-                Title
-                Subtitle
-                Content
-                Dark
-                Prior
-                MinimizeHeader
-                ArticleCssConfig
-                Date
-                BackgroundImage {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-                Image {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
+                name
               }
             }
           }
+          updatedAt
         }
       }
     }

@@ -68,7 +68,13 @@ body {
     @apply text-blue-700;
     @apply hover:underline;
   }
+
+  .text-grey {
+    color: @apply grey;
+  }
 }
+
+/* COLORS */
 
 /* RESPONSIVE  */
 
@@ -118,11 +124,11 @@ html {
   }
 
   .w-gallery {
-    width: calc(50vw + theme("screens.lg") / 2 - 5rem);
+    width: calc(50vw + theme("screens.lg") / 2 - 9rem);
   }
 
   .container {
-    max-width: calc(theme("screens.lg") - 10rem);
+    max-width: calc(theme("screens.lg") - 18rem);
   }
 }
 
@@ -132,11 +138,11 @@ html {
   }
 
   .w-gallery {
-    width: calc(50vw + theme("screens.xl") / 2 - 7.5rem);
+    width: calc(50vw + theme("screens.xl") / 2 - 16em);
   }
 
   .container {
-    max-width: calc(theme("screens.xl") - 15rem);
+    max-width: calc(theme("screens.xl") - 32rem);
   }
 }
 
@@ -146,10 +152,10 @@ html {
   }
 
   .w-gallery {
-    width: calc(50vw + theme("screens.2xl") / 2 - 5rem);
+    width: calc(50vw + theme("screens.2xl") / 2 - 18rem);
   }
 
   .container {
-    max-width: calc(theme("screens.2xl") - 10rem);
+    max-width: calc(theme("screens.2xl") - 36rem);
   }
 }

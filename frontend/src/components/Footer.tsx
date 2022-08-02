@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import youtubeIcon from "../assets/svg/youtube.svg";
 import instagramIcon from "../assets/svg/instagram.svg";
 import telegramIcon from "../assets/svg/telegram.svg";
-import facebookIcon from "../assets/svg/facebook.svg";
+import tiktokIcon from "../assets/svg/tiktok.svg";
 import { useLang } from "../context/lang";
 
 export default () => {
@@ -28,8 +28,8 @@ export default () => {
         />
         <img
           className="m-8 invert dark:invert-0 cursor-pointer"
-          style={{ width: "5rem" }}
-          src={facebookIcon}
+          style={{ width: "4.5rem" }}
+          src={tiktokIcon}
         />
       </div>
       <div className="cursor-pointer my-16 w-full text-center text-5.5xl text-black dark:text-white font-bold tracking-extrawide">

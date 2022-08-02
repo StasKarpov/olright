@@ -17,6 +17,7 @@ export default () => {
     darkModeOn();
     setStyleVariable("--active-link-color", "rgba(163, 114, 193)");
   }, []);
+
   return (
     <FadeIn>
       <div className="container">

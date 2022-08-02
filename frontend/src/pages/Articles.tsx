@@ -9,7 +9,7 @@ import { bgImageStyle } from "../utils/index";
 import { darkModeOff, initTheme } from "../utils/theme";
 import FadeIn from "react-fade-in";
 
-const ArticlesQuery = adopt({
+export const ArticlesQuery = adopt({
   priorArticlesQuery: ({ render }) => (
     <Query
       query={ARTICLES_PRIOR}
@@ -26,7 +26,7 @@ const ArticlesQuery = adopt({
   ),
 });
 
-interface IArticlesQueryRender {
+export interface IArticlesQueryRender {
   normalArcticlesQuery: {
     data: QueryType;
     fetchMore: Function;
@@ -130,6 +130,9 @@ const Articles = ({
     //push one prior article
     if (sArticlesBuffer.length) {
       articles.push(sArticlesBuffer.shift() as ArticleEntity);
+      if (!isSmallScreen) {
+        articles.push(sArticlesBuffer.shift() as ArticleEntity);
+      }
     }
 
     //and N normal articles
@@ -153,7 +156,7 @@ const Articles = ({
             <span>{t("НОВЕ")}</span>
           </div>
           <div className="absolute left-[50%] w-[50vw]">
-            <hr className="relative left-[-100%] border-t md:border-t-4 border-solid border-black w-[100vw]"></hr>
+            <hr className="relative left-[-100%] border-t sm:border-t-3 border-solid border-black w-[100vw]"></hr>
           </div>
         </>
       )}
@@ -178,7 +181,13 @@ const Articles = ({
   );
 };
 
-const ArticleCard = ({ article }: { article: ArticleEntity }) => {
+export const ArticleCard = ({
+  article,
+  minimize,
+}: {
+  article: ArticleEntity;
+  minimize?: boolean;
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -190,27 +199,29 @@ const ArticleCard = ({ article }: { article: ArticleEntity }) => {
   return (
     <div
       className={`${
-        article.attributes?.Prior ? "w-full py-10 md:py-24" : "w-1/2 lg:w-1/3"
+        article.attributes?.Prior && !minimize
+          ? "w-full md:w-1/2 py-10 md:py-24"
+          : "w-1/2 lg:w-1/3"
       } p-2 group`}
     >
       <div
         onClick={() => navigate(articleLink)}
         className={`w-full cursor-pointer relative bg-cover bg-center bg-no-repeat ${
-          article.attributes?.Prior ? "pt-half md:pt-third" : "pt-full"
-        }  `}
+          article.attributes?.Prior && !minimize ? "pt-half" : "pt-full"
+        }`}
         style={bgImageStyle(
           article.attributes?.Image?.data?.attributes?.url || ""
         )}
       >
         <div
-          className="w-full h-full absolute top-0"
+          className="w-full h-full group-hover:h-[30%] absolute bottom-0  overflow-hidden"
           style={{
             background:
               "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)",
           }}
         ></div>
         <div
-          className={`absolute bottom-1 left-1 text-white text-3xl md:text-4xl group-hover:mx-6 group-hover:my-4 font-extrabold ml-4 mb-2 leading-10 md:leading-12`}
+          className={`absolute bottom-1 left-1 text-white text-3xl md:text-4xl font-bold group-hover:font-extrabold ml-4 mb-2 leading-10 md:leading-12`}
         >
           <div>{article.attributes?.Title || ""}</div>
           <div>{article.attributes?.Subtitle || ""}</div>

@@ -1,15 +1,13 @@
 import React from "react";
 import Icon from "@mdi/react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { mdiMenu } from "@mdi/js";
-import { mdiClose } from "@mdi/js";
+import { mdiMenu, mdiClose } from "@mdi/js";
 import FadeIn from "react-fade-in";
 import youtubeIcon from "../assets/svg/youtube.svg";
 import instagramIcon from "../assets/svg/instagram.svg";
 import telegramIcon from "../assets/svg/telegram.svg";
 import facebookIcon from "../assets/svg/facebook.svg";
-import { isDarkMode } from "../utils/theme";
-
+import Search from "../pages/Search";
 import MenuItemLink from "./MenuItemLink";
 
 export default () => {
@@ -26,21 +24,22 @@ export default () => {
     <div
       className={`relative w-full px-[9rem] md:px-0 ${
         location.pathname == "/"
-          ? "border-b sm:border-b-3 md:border-b-6 border-white border-solid"
+          ? "border-b sm:border-b-3 border-white border-solid"
           : ""
       }`}
     >
       <div
-        className={`z-10 relative container ${
+        className={`z-30 relative container ${
           location.pathname == "/"
-            ? "border-r sm:border-r-3 md:border-r-6 border-solid border-white"
+            ? "border-r sm:border-r-3 border-solid border-white"
             : ""
         }`}
       >
         <div
           onClick={() => navigate("/")}
-          className="w-full font-bold text-9xl text-center dark:text-white tracking-widest py-8 md:py-16 cursor-pointer"
+          className="relative w-full font-bold text-9xl text-center dark:text-white tracking-widest py-8 md:py-16 cursor-pointer"
         >
+          <Search />
           ОЛРАЙТ
         </div>
         <div className="hidden md:flex justify-between pb-14 px-40">
@@ -57,7 +56,7 @@ export default () => {
         <Icon size={4} className="text-black dark:text-white" path={mdiMenu} />
       </div>
       <div
-        className={`absolute z-20 transition-all top-0 right-0 border-l sm:border-l-3 md:border-l-6 border-solid border-white ${
+        className={`absolute z-20 transition-all top-0 right-0 border-l sm:border-l-3 border-solid border-white ${
           showMobileMenu ? " w-[70vw] " : "w-0"
         } bg-black `}
       >

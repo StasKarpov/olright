@@ -15,7 +15,7 @@ export default ({ to, text, className }: IMenuItemLinkProps) => {
 
   return (
     <div
-      className={`text-4xl md:text-xl cursor-pointer font-normal hover:text-active-link dark:hover:font-bold tracking-widest md:tracking-normal ${
+      className={`text-4xl md:text-lg cursor-pointer font-normal hover:text-active-link dark:hover:font-bold tracking-widest md:tracking-normal ${
         isActive
           ? "font-bold md:font-normal text-blue-700 text-active-link md:dark:font-bold"
           : "text-white md:text-black md:dark:text-white"

@@ -40,7 +40,7 @@
     "Hidden": {
       "type": "boolean"
     },
-    "MinimizeHeader": {
+    "Special": {
       "type": "boolean"
     },
     "Date": {
@@ -58,6 +58,11 @@
     },
     "ArticleCssConfig": {
       "type": "json"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tag.tag"
     }
   }
 }

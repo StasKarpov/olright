@@ -33,9 +33,9 @@ const Carousel = ({ articles }: { articles: Array<ArticleEntity> }) => {
 
   return (
     <div>
-      <div className="flex items-center w-full border-b sm:border-b-3 md:border-b-6 border-white border-solid">
+      <div className="flex items-center w-full border-b sm:border-b-3 border-white border-solid">
         <div
-          className="group cursor-pointer relative w-gallery h-[70rem] md:h-[52rem]  border-r sm:border-r-3 md:border-r-6  border-white border-solid  bg-cover bg-no-repeat bg-center"
+          className="group cursor-pointer relative w-gallery h-[70rem] md:h-[50rem]  border-r sm:border-r-3 border-white border-solid  bg-cover bg-no-repeat bg-center"
           // style={bgImageStyle(
           //   currentArticle?.attributes?.Image?.data?.attributes?.url
           // )}
@@ -49,57 +49,59 @@ const Carousel = ({ articles }: { articles: Array<ArticleEntity> }) => {
               className="object-cover w-full h-full object-top"
             />
           </div>
-          <div
+          {/* <div
             className="w-full h-[70rem] md:h-[52rem] absolute top-0"
             style={{
               background:
                 "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)",
             }}
-          ></div>
-          <div className="absolute bottom-1 text-right md:text-left right-1 md:left-1 text-white font-extrabold mx-4 my-2 leading-20 text-8xl group-hover:mx-6 group-hover:my-4">
+          ></div> */}
+          <div className="absolute bottom-1 text-right md:text-left right-1 md:left-1 text-white font-extrabold mx-10 my-10 ml-32 leading-20 text-8xl group-hover:ml-36 group-hover:my-12">
             <div>{currentArticle?.attributes?.Title}</div>
             <div>{currentArticle?.attributes?.Subtitle}</div>
           </div>
         </div>
-        <div className="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 border-2 sm:border-3 md:border-6 border-white border-solid absolute right-[2rem] sm:right-[3rem] md:right-[5rem] xl:right-[7rem] bg-black mb-[28rem] sm:mb-[20rem] md:mb-0">
-          <div className="h-full w-full overflow-hidden flex bg-gray-300">
-            {" "}
-            <Image
-              src={toAbsoluteSrc(
-                nextArticle.attributes?.Image?.data?.attributes?.url
-              )}
-              className="object-cover w-full"
-            />
+        <div className="bg-transparent absolute flex flex-col items-center right-[2rem] sm:right-[3rem] md:right-[5rem] xl:right-[4rem] mb-[28rem] sm:mb-[20rem] md:mb-0 mt-24">
+          <div className="w-28 h-24 sm:w-32 sm:h-28 md:w-[7rem] md:h-[7rem] mb-24 ml-[12rem]">
+            <div
+              onClick={() => setCurrentIndex((prev) => prev + 1)}
+              className="border sm:border-3 border-white border-solid text-white cursor-pointer hover:bg-white hover:text-black h-full flex justify-center items-center"
+            >
+              {" "}
+              <Icon
+                style={{ strokeWidth: "1rem" }}
+                size={4}
+                path={mdiChevronRight}
+              />
+            </div>
+            <div className="mt-4 flex w-full justify-between">
+              {articles.map((_, index: number) => (
+                <div
+                  key={index}
+                  className="bg-white flex items-center justify-center w-4 h-4"
+                >
+                  {index == currentIndex % articles.length && (
+                    <div className="rounded-full bg-black w-2 h-2"></div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="w-28 h-24 sm:w-32 sm:h-28 md:w-36 md:h-36 absolute right-[22rem] sm:right-[25rem] md:right-[32rem] xl:right-[36rem] mb-[28rem] sm:mb-[20rem] md:mb-0">
-          <div
-            onClick={() => setCurrentIndex((prev) => prev + 1)}
-            className="border sm:border-3 md:border-6 border-white border-solid text-white cursor-pointer hover:bg-white hover:text-black h-full flex justify-center items-center"
-          >
-            {" "}
-            <Icon
-              style={{ strokeWidth: "1rem" }}
-              size={4}
-              path={mdiChevronRight}
-            />
-          </div>
-          <div className="mt-8 flex w-full justify-between">
-            {articles.map((_, index: number) => (
-              <div
-                key={index}
-                className="bg-white flex items-center justify-center w-4 h-4"
-              >
-                {index == currentIndex % articles.length && (
-                  <div className="rounded-full bg-black w-2 h-2"></div>
+          <div className="w-72 h-72 sm:w-80 sm:h-80 md:w-[30rem] md:h-[20rem] border-2 sm:border-3 border-white border-solid ">
+            <div className="h-full w-full overflow-hidden flex bg-gray-300">
+              {" "}
+              <Image
+                src={toAbsoluteSrc(
+                  nextArticle.attributes?.Image?.data?.attributes?.url
                 )}
-              </div>
-            ))}
+                className="object-cover w-full"
+              />
+            </div>
           </div>
         </div>
       </div>
       <div className="h-14 flex">
-        <div className="w-gallery border-r sm:border-r-3 md:border-r-6  border-white border-solid"></div>
+        <div className="w-gallery border-r sm:border-r-3  border-white border-solid"></div>
       </div>
     </div>
   );

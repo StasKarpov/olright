@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         "text-blue-700": "rgb(13, 8, 242)",
         "active-link": "var(--active-link-color)",
+        grey: "#999999",
       },
       lineHeight: {
         12: "3rem",
