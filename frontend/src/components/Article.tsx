@@ -93,7 +93,7 @@ const Article = ({
             },
           }: IArticlesQueryRender) =>
             normalArticles && priorArticles ? (
-              <div className="flex">
+              <div className="flex mt-16">
                 <ArticleCard minimize article={priorArticles.data[0]} />
                 <ArticleCard minimize article={normalArticles.data[0]} />
                 <ArticleCard minimize article={normalArticles.data[1]} />
