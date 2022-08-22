@@ -83,7 +83,11 @@ html {
 }
 
 .w-gallery {
-  width: calc(100vw - 9rem);
+  width: calc(100vw - 12rem);
+}
+
+.w-main-image {
+  width: 100%;
 }
 
 .container {
@@ -96,7 +100,7 @@ html {
   }
 
   .w-gallery {
-    width: calc(100vw - 9rem);
+    width: calc(100vw - 12rem);
   }
 
   .container {
@@ -110,6 +114,10 @@ html {
   }
 
   .w-gallery {
+    width: calc(50vw + theme("screens.md") / 2 - 5rem);
+  }
+
+  .w-main-image {
     width: calc(50vw + theme("screens.md") / 2 - 5rem);
   }
 
@@ -127,6 +135,10 @@ html {
     width: calc(50vw + theme("screens.lg") / 2 - 9rem);
   }
 
+  .w-main-image {
+    width: calc(50vw + theme("screens.lg") / 2 - 9rem);
+  }
+
   .container {
     max-width: calc(theme("screens.lg") - 18rem);
   }
@@ -141,6 +153,10 @@ html {
     width: calc(50vw + theme("screens.xl") / 2 - 16em);
   }
 
+  .w-main-image {
+    width: calc(50vw + theme("screens.xl") / 2 - 16em);
+  }
+
   .container {
     max-width: calc(theme("screens.xl") - 32rem);
   }
@@ -152,6 +168,10 @@ html {
   }
 
   .w-gallery {
+    width: calc(50vw + theme("screens.2xl") / 2 - 18rem);
+  }
+
+  .w-main-image {
     width: calc(50vw + theme("screens.2xl") / 2 - 18rem);
   }
 

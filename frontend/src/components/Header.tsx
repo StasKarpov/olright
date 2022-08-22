@@ -22,7 +22,7 @@ export default () => {
 
   return (
     <div
-      className={`relative w-full px-[9rem] md:px-0 ${
+      className={`relative w-full px-[12rem] md:px-0 ${
         location.pathname == "/"
           ? "border-b sm:border-b-3 border-white border-solid"
           : ""
@@ -37,7 +37,7 @@ export default () => {
       >
         <div
           onClick={() => navigate("/")}
-          className="relative w-full font-bold text-9xl text-center dark:text-white tracking-widest py-8 md:py-16 cursor-pointer"
+          className="relative w-full font-bold text-9xl text-center dark:text-white tracking-widest py-8 pb-24 md:py-16 cursor-pointer"
         >
           <Search />
           ОЛРАЙТ
@@ -50,7 +50,7 @@ export default () => {
         </div>
       </div>
       <div
-        className="absolute right-[1rem] top-[3rem] cursor-pointer block md:hidden"
+        className="absolute right-[3rem] top-[3rem] cursor-pointer block md:hidden"
         onClick={() => setShowMobileMenu(true)}
       >
         <Icon size={4} className="text-black dark:text-white" path={mdiMenu} />

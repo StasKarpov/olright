@@ -20,16 +20,17 @@ export default () => {
 
   return (
     <FadeIn>
-      <div className="container">
+      <div className="container xl:px-48 2xl:px-8">
         <Query darkLoader query={MAIN_PLAYLIST}>
           {({ data: { mainPlaylist } }: { data: QueryType }) => (
-            <div className="w-full p-0 md:py-52 md:px-32">
-              <MainPlaylist
+            <div className="w-full mb-8">
+              <Playlist
                 playlist={
                   mainPlaylist?.data?.attributes?.playlist?.data
                     ? mainPlaylist.data.attributes.playlist.data
                     : undefined
                 }
+                big
               />
             </div>
           )}
@@ -89,7 +90,7 @@ const Playlists = ({
   const { t } = useLang();
   return playlists ? (
     <div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-14 mt-20 md:mt-0">
+      <div className="grid grid-cols-2 gap-8 md:gap-14 mt-20 md:mt-0">
         {playlists.map((playlist: PlaylistEntity) => (
           <Playlist playlist={playlist} />
         ))}
@@ -109,81 +110,13 @@ const Playlists = ({
   ) : null;
 };
 
-const Playlist = ({ playlist }: { playlist?: PlaylistEntity }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    let link = playlist?.attributes?.Link || "";
-
-    if (link.startsWith("/")) {
-      navigate(link);
-    } else {
-      if (!link.startsWith("http")) {
-        link = "https://" + link;
-      }
-      const linkUrl = new URL(link);
-      const pageURL = new URL(window.location.toString());
-      if (linkUrl.host == pageURL.host) {
-        navigate(linkUrl.pathname);
-      } else {
-        window.open(link, "_blank");
-      }
-    }
-  };
-
-  return playlist ? (
-    <div className="cursor-pointer mx-4">
-      <div
-        className="w-full pt-[80%] bg-cover bg-center bg-no-repeat"
-        style={bgImageStyle(playlist.attributes?.Image?.data?.attributes?.url)}
-      ></div>
-      <div
-        className={`w-full relative pt-[70%] xl:pt-[50%] 2xl:pt-[60%] bg-cover bg-center bg-no-repeat border-1 border-solid border-black`}
-        style={bgImageStyle(playlist.attributes?.Image?.data?.attributes?.url)}
-      >
-        <div
-          className="group w-full h-[calc(100%+4px)] absolute bottom-0 flex flex-col justify-between"
-          style={{
-            background: "rgba(0, 0, 0, 0.4)",
-            backdropFilter: "blur(300px)",
-          }}
-        >
-          <div
-            onClick={handleClick}
-            className={`${
-              playlist.attributes?.Link ? "cursor-pointer" : ""
-            } text-white text-30 sm:text-40 font-semibold text-left md:text-right mx-8 mt-3`}
-          >
-            <div>{playlist.attributes?.Title}</div>
-            <div>{playlist.attributes?.Subtitle}</div>
-          </div>
-          <div className="flex justify-start md:justify-end mb-10 mx-4">
-            <img
-              style={{ width: "5rem" }}
-              onClick={() => {
-                if (playlist.attributes?.LinkITunes)
-                  window.open(playlist.attributes?.LinkITunes || "");
-              }}
-              className="m-4 cursor-pointer"
-              src={itunesIcon}
-            ></img>
-            <img
-              style={{ width: "5rem" }}
-              onClick={() => {
-                if (playlist.attributes?.LinkSpotify)
-                  window.open(playlist.attributes?.LinkSpotify || "");
-              }}
-              className="m-4 cursor-pointer"
-              src={spotifyIcon}
-            ></img>
-          </div>
-        </div>
-      </div>
-    </div>
-  ) : null;
-};
-
-const MainPlaylist = ({ playlist }: { playlist?: PlaylistEntity }) => {
+const Playlist = ({
+  playlist,
+  big = false,
+}: {
+  playlist?: PlaylistEntity;
+  big?: boolean;
+}) => {
   const navigate = useNavigate();
   const { t } = useLang();
 
@@ -229,42 +162,46 @@ const MainPlaylist = ({ playlist }: { playlist?: PlaylistEntity }) => {
         style={bgImageStyle(playlist.attributes?.Image?.data?.attributes?.url)}
       >
         <div
-          className="group w-full h-full absolute bottom-0 text-right flex justify-between flex-col p-10 pl-2 md:pl-10"
+          className={`group w-full h-full absolute bottom-0 text-right flex justify-between flex-col ${
+            big ? "p-10" : "p-4"
+          } pl-2 md:pl-10 pt-6`}
           style={{
             background: "rgba(0, 0, 0, 0.4)",
-            backdropFilter: "blur(300px)",
+            backdropFilter: "blur(20px)",
           }}
         >
-          <div className="text-xl font-normal text-white">{`${getDaysAgo()} ${t(
-            "днi тому"
-          )}`}</div>
+          <div
+            className={`${big ? "text-xl" : "text-sm"} font-normal text-white`}
+          >{`${getDaysAgo()} ${t("днi тому")}`}</div>
           <div>
             <div
               onClick={handleClick}
               className={`${
                 playlist.attributes?.Link ? "cursor-pointer" : ""
-              } text-white text-40 md:text-60 font-bold ml-8 mt-3`}
+              } text-white ${
+                big ? "text-40 md:text-60" : "text-xl"
+              } font-bold mt-3`}
             >
               <div>{playlist.attributes?.Title}</div>
               <div>{playlist.attributes?.Subtitle}</div>
             </div>
             <div className="flex justify-end mt-10">
               <img
-                style={{ width: "5rem" }}
+                style={{ width: big ? "5rem" : "2rem" }}
                 onClick={() => {
                   if (playlist.attributes?.LinkITunes)
                     window.open(playlist.attributes?.LinkITunes || "");
                 }}
-                className="m-4 cursor-pointer"
+                className={`${big ? "m-4" : "m-2"} cursor-pointer`}
                 src={itunesIcon}
               ></img>
               <img
-                style={{ width: "5rem" }}
+                style={{ width: big ? "5rem" : "2rem" }}
                 onClick={() => {
                   if (playlist.attributes?.LinkSpotify)
                     window.open(playlist.attributes?.LinkSpotify || "");
                 }}
-                className="m-4 cursor-pointer"
+                className={`${big ? "m-4" : "m-2"} cursor-pointer`}
                 src={spotifyIcon}
               ></img>
             </div>
@@ -274,3 +211,77 @@ const MainPlaylist = ({ playlist }: { playlist?: PlaylistEntity }) => {
     </div>
   ) : null;
 };
+
+// const Playlist = ({ playlist }: { playlist?: PlaylistEntity }) => {
+//   const navigate = useNavigate();
+
+//   const handleClick = () => {
+//     let link = playlist?.attributes?.Link || "";
+
+//     if (link.startsWith("/")) {
+//       navigate(link);
+//     } else {
+//       if (!link.startsWith("http")) {
+//         link = "https://" + link;
+//       }
+//       const linkUrl = new URL(link);
+//       const pageURL = new URL(window.location.toString());
+//       if (linkUrl.host == pageURL.host) {
+//         navigate(linkUrl.pathname);
+//       } else {
+//         window.open(link, "_blank");
+//       }
+//     }
+//   };
+
+//   return playlist ? (
+//     <div className="cursor-pointer mx-4">
+//       <div
+//         className="w-full pt-[80%] bg-cover bg-center bg-no-repeat"
+//         style={bgImageStyle(playlist.attributes?.Image?.data?.attributes?.url)}
+//       ></div>
+//       <div
+//         className={`w-full relative pt-[70%] xl:pt-[50%] 2xl:pt-[60%] bg-cover bg-center bg-no-repeat border-1 border-solid border-black`}
+//         style={bgImageStyle(playlist.attributes?.Image?.data?.attributes?.url)}
+//       >
+//         <div
+//           className="group w-full h-[calc(100%+4px)] absolute bottom-0 flex flex-col justify-between"
+//           style={{
+//             background: "rgba(0, 0, 0, 0.4)",
+//             backdropFilter: "blur(300px)",
+//           }}
+//         >
+//           <div
+//             onClick={handleClick}
+//             className={`${
+//               playlist.attributes?.Link ? "cursor-pointer" : ""
+//             } text-white text-30 sm:text-40 font-semibold text-left md:text-right mx-8 mt-3`}
+//           >
+//             <div>{playlist.attributes?.Title}</div>
+//             <div>{playlist.attributes?.Subtitle}</div>
+//           </div>
+//           <div className="flex justify-start md:justify-end mb-10 mx-4">
+//             <img
+//               style={{ width: "5rem" }}
+//               onClick={() => {
+//                 if (playlist.attributes?.LinkITunes)
+//                   window.open(playlist.attributes?.LinkITunes || "");
+//               }}
+//               className="m-4 cursor-pointer"
+//               src={itunesIcon}
+//             ></img>
+//             <img
+//               style={{ width: "5rem" }}
+//               onClick={() => {
+//                 if (playlist.attributes?.LinkSpotify)
+//                   window.open(playlist.attributes?.LinkSpotify || "");
+//               }}
+//               className="m-4 cursor-pointer"
+//               src={spotifyIcon}
+//             ></img>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   ) : null;
+// };

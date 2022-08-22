@@ -36,7 +36,7 @@ const debouncedFetchData = debounce(
     page: number,
     onFetch: (articles: Partial<ArticleEntity>[], hasNext: boolean) => void
   ) => {
-    fetchArticles(tagName, page, onFetch);
+    fetchArticles(tagName.toLowerCase(), page, onFetch);
   },
   300
 );
@@ -44,6 +44,7 @@ const debouncedFetchData = debounce(
 export default () => {
   const navigate = useNavigate();
   const location = useLocation();
+
   const { t } = useLang();
 
   const [show, setShow] = React.useState(false);
@@ -61,6 +62,7 @@ export default () => {
 
   /** Search with url */
   React.useEffect(() => {
+    console.log(location);
     if (location.search.includes("search")) {
       setShow(true);
       setSearchTag(decodeURI(location.search.split("=")[1]));
@@ -119,18 +121,26 @@ export default () => {
     }
   };
 
+  const goToArticle = (id?: string) => {
+    console.log(id);
+    if (id) {
+      navigate(`articles/${id}`);
+    }
+    setShow(false);
+  };
+
   return (
-    <>
+    <div onClick={(e) => e.stopPropagation()}>
       <div
         onClick={(e) => {
           e.stopPropagation();
           setShow((prev) => !prev);
         }}
-        className="absolute h-full flex items-center left-0 top-0 cursor-pointer ml-24"
+        className="absolute h-full flex items-center left-0 top-0 cursor-pointer ml-[-6rem] md:ml-24"
       >
         <Icon
           size={2}
-          className="text-black dark:text-white"
+          className="text-black dark:text-white mb-[4rem] md:mb-0 "
           path={mdiMagnify}
         />
       </div>
@@ -166,10 +176,7 @@ export default () => {
                     <div
                       key={article.id}
                       className="py-4 cursor-pointer hover:font-bold"
-                      onClick={() => {
-                        setShow(false);
-                        navigate(`articles/${article.id}`);
-                      }}
+                      onClick={() => goToArticle(String(article.id))}
                     >
                       {`${article.attributes?.Title} ${article.attributes?.Subtitle}`}
                     </div>
@@ -180,6 +187,6 @@ export default () => {
           </FadeIn>
         )}
       </div>
-    </>
+    </div>
   );
 };

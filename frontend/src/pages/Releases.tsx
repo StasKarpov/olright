@@ -9,101 +9,120 @@ import { useNavigate } from "react-router-dom";
 import { darkModeOn, setStyleVariable } from "../utils/theme";
 import { useLang } from "../context/lang";
 import { getDaysAgo } from "../utils";
+import { adopt } from "react-adopt";
+
+export const ReleasesQuery = adopt({
+  mainReleaseQuery: ({ render }) => (
+    <Query darkLoader query={MAIN_RELEASE} loaderClassName="h-[100vh]">
+      {render}
+    </Query>
+  ),
+  releasesQuery: ({ render }) => (
+    <Query query={RELEASES} variables={{ offset: 0, limit: 8 }}>
+      {render}
+    </Query>
+  ),
+});
+
+interface IReleasesQueryRender {
+  mainReleaseQuery: {
+    data: QueryType;
+  };
+  releasesQuery: {
+    data: QueryType;
+    fetchMore: Function;
+  };
+}
 
 export default () => {
+  const { t } = useLang();
+
   React.useEffect(() => {
     darkModeOn();
     setStyleVariable("--active-link-color", "rgb(251, 4, 93)");
   }, []);
 
+  const isSmallScreen = window.innerWidth < 640;
+
   return (
     <FadeIn>
-      <div className="container mt-20 md:mt-0">
-        <Query darkLoader query={MAIN_RELEASE}>
-          {({ data: { mainRelease } }: { data: QueryType }) => (
-            <div className="w-full p-0 md:py-52 md:px-80">
-              <Release
-                big
-                release={
-                  mainRelease?.data?.attributes?.release?.data
-                    ? mainRelease.data.attributes.release.data
-                    : undefined
-                }
-              />
-            </div>
-          )}
-        </Query>
-        <Query
-          disableLoader
-          query={RELEASES}
-          variables={{ offset: 0, limit: 8 }}
-        >
+      <div className="container mt-20 md:mt-0 px-8 md:px-48 2xl:px-6">
+        <ReleasesQuery>
           {({
-            data: { releases },
-            fetchMore,
-          }: {
-            data: QueryType;
-            fetchMore: Function;
-          }) => (
-            <Releases
-              releases={releases?.data}
-              hasMore={releases?.meta.pagination.total != releases?.data.length}
-              fetchMore={() =>
-                fetchMore({
-                  variables: { offset: releases?.data.length },
-                  updateQuery: (prev: any, { fetchMoreResult }: any) => {
-                    if (!fetchMoreResult) return prev;
-                    return Object.assign({}, prev, {
-                      releases: {
-                        __typename: "ReleaseEntityResponseCollection",
-                        meta: prev.releases.meta,
-                        data: [
-                          ...prev.releases.data,
-                          ...fetchMoreResult.releases.data,
-                        ],
-                      },
-                    });
-                  },
-                })
-              }
-            />
-          )}
-        </Query>
+            mainReleaseQuery: {
+              data: { mainRelease },
+            },
+            releasesQuery: {
+              data: { releases },
+              fetchMore: fetchMoreReleases,
+            },
+          }: IReleasesQueryRender) => {
+            const fetchMore = () =>
+              fetchMoreReleases({
+                variables: { offset: releases?.data.length },
+                updateQuery: (prev: any, { fetchMoreResult }: any) => {
+                  if (!fetchMoreResult) return prev;
+                  return Object.assign({}, prev, {
+                    releases: {
+                      __typename: "ReleaseEntityResponseCollection",
+                      meta: prev.releases.meta,
+                      data: [
+                        ...prev.releases.data,
+                        ...fetchMoreResult.releases.data,
+                      ],
+                    },
+                  });
+                },
+              });
+            const hasMore =
+              releases?.meta.pagination.total != releases?.data.length;
+
+            return mainRelease && releases ? (
+              <div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-10">
+                  <div style={{ gridArea: "1/1/3/3" }}>
+                    <Release
+                      big
+                      release={
+                        mainRelease?.data?.attributes?.release?.data
+                          ? mainRelease.data.attributes.release.data
+                          : undefined
+                      }
+                    />
+                  </div>
+                  {releases?.data.map((release: ReleaseEntity, index) => (
+                    <div
+                      style={
+                        isSmallScreen
+                          ? {}
+                          : index == 0
+                          ? { gridArea: "1 / 3 / 2 / 4" }
+                          : index == 1
+                          ? { gridArea: "2 / 3 / 3 / 4" }
+                          : {}
+                      }
+                    >
+                      <Release release={release} />
+                    </div>
+                  ))}
+                </div>
+                <div className="w-full flex justify-center my-40">
+                  {hasMore && (
+                    <div
+                      onClick={() => fetchMore()}
+                      className="mx-auto cursor-pointer bg-black hover:bg-white text-3xl text-white hover:text-black border-3 border-solid border-white px-32 py-8"
+                    >
+                      {t("більше релізів")}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : null;
+          }}
+        </ReleasesQuery>
       </div>
     </FadeIn>
   );
-};
-
-const Releases = ({
-  releases,
-  hasMore,
-  fetchMore,
-}: {
-  releases?: Array<ReleaseEntity>;
-  hasMore: Boolean;
-  fetchMore: Function;
-}) => {
-  const { t } = useLang();
-  return releases ? (
-    <div>
-      <div className="mt-20 md:mt-0 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
-        {releases.map((release: ReleaseEntity) => (
-          <Release release={release} />
-        ))}
-      </div>
-
-      <div className="flex justify-center my-40">
-        {hasMore && (
-          <div
-            onClick={() => fetchMore()}
-            className="mx-auto cursor-pointer bg-black hover:bg-white text-3xl text-white hover:text-black border-3 border-solid border-white px-32 py-8"
-          >
-            {t("більше релізів")}
-          </div>
-        )}
-      </div>
-    </div>
-  ) : null;
 };
 
 export const Release = ({
@@ -136,24 +155,20 @@ export const Release = ({
   };
 
   return release ? (
-    <div onClick={handleClick} className="cursor-pointer">
+    <div onClick={handleClick} className="cursor-pointer group">
       <div
-        className="w-full pt-[80%] bg-cover bg-center bg-no-repeat"
+        className="w-full  pt-[80%] bg-cover bg-center bg-no-repeat"
         style={bgImageStyle(release.attributes?.Image?.data?.attributes?.url)}
       ></div>
       <div
-        className={`w-full relative ${
-          big
-            ? "pt-[30%] sm:pt-[25%] md:pt-[35%] xl:pt-[20%] 2xl:pt-[30%]"
-            : "pt-[35%] md:pt-[40%] xl:pt-[30%] 2xl:pt-[35%]"
-        } bg-cover bg-center bg-no-repeat border-1 border-solid border-black`}
+        className={`w-full relative pt-[15%] sm:pt-[30%] md:pt-[30%] lg:pt-[25%] xl:pt-[20%] 2xl:pt-[30%] bg-cover bg-center bg-no-repeat border-1 border-solid border-black`}
         style={bgImageStyle(release.attributes?.Image?.data?.attributes?.url)}
       >
         <div
-          className="group w-full h-[calc(100%+4px+1rem)] absolute bottom-[-2px]"
+          className=" w-full h-[calc(100%+2px)] absolute bottom-[-2px]"
           style={{
             background: "rgba(0, 0, 0, 0.4)",
-            backdropFilter: "blur(300px)",
+            backdropFilter: "blur(15px)",
           }}
         >
           <div
@@ -164,24 +179,25 @@ export const Release = ({
             <div>
               <div
                 className={`${
-                  big ? "text-60" : "text-40"
+                  big ? "text-40" : "text-xl leading-8 md:leading-6"
                 } font-medium group-hover:font-bold`}
               >
                 {release.attributes?.Title}
               </div>
               <div
                 className={`${
-                  big ? "text-50" : "text-30"
+                  big ? "text-30" : "text-20"
                 } font-normal group-hover:font-semibold`}
               >
                 {release.attributes?.Subtitle}
               </div>
             </div>
-            {big && (
-              <div className="text-2xl font-normal text-white text-right mr-8 mb-12">{`${getDaysAgo(
-                release.attributes?.Date
-              )} ${t("днi тому")}`}</div>
-            )}
+
+            <div
+              className={`${
+                big ? "text-xl" : "text-sm"
+              } font-normal text-white text-right absolute bottom-0 right-0 mr-8 mb-4`}
+            >{`${getDaysAgo(release.attributes?.Date)} ${t("днi тому")}`}</div>
           </div>
         </div>
       </div>
