@@ -63,6 +63,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag.tag"
+    },
+    "CropHeaderImage": {
+      "type": "boolean"
+    },
+    "PutHeadlineOnTop": {
+      "type": "boolean"
     }
   }
 }

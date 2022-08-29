@@ -138,6 +138,8 @@ export const ARTICLE = gql`
           Prior
           Special
           ArticleCssConfig
+          CropHeaderImage
+          PutHeadlineOnTop
           BackgroundImage {
             data {
               attributes {

@@ -30,10 +30,12 @@ export type Article = {
   Hidden?: Maybe<Scalars['Boolean']>;
   Image?: Maybe<UploadFileEntityResponse>;
   Prior?: Maybe<Scalars['Boolean']>;
+  PutHeadlineOnTop?: Maybe<Scalars['Boolean']>;
   Special?: Maybe<Scalars['Boolean']>;
   Subtitle?: Maybe<Scalars['String']>;
   Title?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  CropHeaderImage?: Maybe<Scalars['Boolean']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   tags?: Maybe<TagRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -71,11 +73,13 @@ export type ArticleFiltersInput = {
   Date?: InputMaybe<DateFilterInput>;
   Hidden?: InputMaybe<BooleanFilterInput>;
   Prior?: InputMaybe<BooleanFilterInput>;
+  PutHeadlineOnTop?: InputMaybe<BooleanFilterInput>;
   Special?: InputMaybe<BooleanFilterInput>;
   Subtitle?: InputMaybe<StringFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  CropHeaderImage?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ArticleFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
@@ -93,9 +97,11 @@ export type ArticleInput = {
   Hidden?: InputMaybe<Scalars['Boolean']>;
   Image?: InputMaybe<Scalars['ID']>;
   Prior?: InputMaybe<Scalars['Boolean']>;
+  PutHeadlineOnTop?: InputMaybe<Scalars['Boolean']>;
   Special?: InputMaybe<Scalars['Boolean']>;
   Subtitle?: InputMaybe<Scalars['String']>;
   Title?: InputMaybe<Scalars['String']>;
+  CropHeaderImage?: InputMaybe<Scalars['Boolean']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   tags?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
 };
