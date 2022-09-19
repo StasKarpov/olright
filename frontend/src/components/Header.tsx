@@ -22,22 +22,22 @@ export default () => {
 
   return (
     <div
-      className={`relative w-full px-[12rem] md:px-0 ${
+      className={`bg-white dark:bg-black z-20 sticky top-0 md:top-[-13rem] w-full px-[12rem] md:px-0 ${
         location.pathname == "/"
-          ? "border-b sm:border-b-3 border-white border-solid"
+          ? "border-b md:border-b-3 border-white border-solid"
           : ""
       }`}
     >
       <div
         className={`z-30 relative container ${
           location.pathname == "/"
-            ? "border-r sm:border-r-3 border-solid border-white"
+            ? "border-r md:border-r-3 border-solid border-white"
             : ""
         }`}
       >
         <div
           onClick={() => navigate("/")}
-          className="relative w-full font-bold text-9xl text-center dark:text-white tracking-widest py-8 pb-24 md:py-16 cursor-pointer"
+          className="relative w-full font-bold text-9xl text-center dark:text-white tracking-widest py-8 pb-4 md:py-16 cursor-pointer"
         >
           <Search />
           ОЛРАЙТ
@@ -56,7 +56,7 @@ export default () => {
         <Icon size={4} className="text-black dark:text-white" path={mdiMenu} />
       </div>
       <div
-        className={`absolute z-20 transition-all top-0 right-0 border-l sm:border-l-3 border-solid border-white ${
+        className={`absolute z-30 transition-all top-0 right-0 border-l md:border-l-3 border-solid border-white ${
           showMobileMenu ? " w-[70vw] " : "w-0"
         } bg-black `}
       >

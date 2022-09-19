@@ -20,8 +20,8 @@ export default () => {
 
   return (
     <FadeIn>
-      <div className="container xl:px-48 2xl:px-8">
-        <Query darkLoader query={MAIN_PLAYLIST}>
+      <div className="container lg:px-96 2xl:px-8">
+        {/* <Query darkLoader query={MAIN_PLAYLIST}>
           {({ data: { mainPlaylist } }: { data: QueryType }) => (
             <div className="w-full mb-8">
               <Playlist
@@ -34,7 +34,7 @@ export default () => {
               />
             </div>
           )}
-        </Query>
+        </Query> */}
         <Query
           disableLoader
           query={PLAYLISTS}
@@ -91,9 +91,24 @@ const Playlists = ({
   return playlists ? (
     <div>
       <div className="grid grid-cols-2 gap-8 md:gap-14 mt-20 md:mt-0">
-        {playlists.map((playlist: PlaylistEntity) => (
-          <Playlist playlist={playlist} />
-        ))}
+        {playlists.map((playlist: PlaylistEntity, index: number) => {
+          const gridOrder = index % 3;
+          const gridLevel = index - gridOrder;
+          return (
+            <div
+              style={{
+                gridArea:
+                  gridOrder % 3 == 0
+                    ? `${index + 1}/1/${index + 3}/3`
+                    : `${gridLevel}/${gridOrder}/${gridLevel + 1}/${
+                        gridOrder + 1
+                      }`,
+              }}
+            >
+              <Playlist big={gridOrder == 0} playlist={playlist} />
+            </div>
+          );
+        })}
       </div>
 
       <div className="flex justify-center my-40">
@@ -168,6 +183,7 @@ const Playlist = ({
           style={{
             background: "rgba(0, 0, 0, 0.4)",
             backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
           }}
         >
           <div
@@ -180,7 +196,7 @@ const Playlist = ({
                 playlist.attributes?.Link ? "cursor-pointer" : ""
               } text-white ${
                 big ? "text-40 md:text-60" : "text-xl"
-              } font-bold mt-3`}
+              } font-bold hover:font-extrabold mt-3`}
             >
               <div>{playlist.attributes?.Title}</div>
               <div>{playlist.attributes?.Subtitle}</div>
@@ -192,7 +208,9 @@ const Playlist = ({
                   if (playlist.attributes?.LinkITunes)
                     window.open(playlist.attributes?.LinkITunes || "");
                 }}
-                className={`${big ? "m-4" : "m-2"} cursor-pointer`}
+                className={`${
+                  big ? "m-4" : "m-2"
+                } cursor-pointer hover:scale-110`}
                 src={itunesIcon}
               ></img>
               <img
@@ -201,7 +219,9 @@ const Playlist = ({
                   if (playlist.attributes?.LinkSpotify)
                     window.open(playlist.attributes?.LinkSpotify || "");
                 }}
-                className={`${big ? "m-4" : "m-2"} cursor-pointer`}
+                className={`${
+                  big ? "m-4" : "m-2"
+                } cursor-pointer hover:scale-110`}
                 src={spotifyIcon}
               ></img>
             </div>

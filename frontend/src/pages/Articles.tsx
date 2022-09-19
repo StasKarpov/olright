@@ -130,7 +130,8 @@ const Articles = ({
     //push one prior article
     if (sArticlesBuffer.length) {
       articles.push(sArticlesBuffer.shift() as ArticleEntity);
-      if (!isSmallScreen) {
+      if (!isSmallScreen && sArticlesBuffer.length) {
+        //if not small screen push another one
         articles.push(sArticlesBuffer.shift() as ArticleEntity);
       }
     }
@@ -148,6 +149,8 @@ const Articles = ({
     articles.push(nArticlesBuffer.shift() as ArticleEntity);
   }
 
+  console.log(articles);
+
   return (
     <div className="relative container mt-0 md:mt-28 pt-20 md:pt-0">
       {isSmallScreen && location.pathname == "/articles" ? null : (
@@ -156,7 +159,7 @@ const Articles = ({
             <span>{t("НОВЕ")}</span>
           </div>
           <div className="absolute left-[50%] w-[50vw]">
-            <hr className="relative left-[-100%] border-t sm:border-t-3 border-solid border-black w-[100vw]"></hr>
+            <hr className="relative left-[-100%] border-t md:border-t-3 border-solid border-black w-[100vw]"></hr>
           </div>
         </>
       )}
@@ -173,7 +176,7 @@ const Articles = ({
             onClick={() => fetchMore()}
             className="cursor-pointer font-medium text-3xl inline-block border border-black border-solid bg-white px-16 py-10 hover:text-white hover:bg-black"
           >
-            {t("бiльше новин")}
+            {t("більше новин")}
           </div>
         )}
       </div>
@@ -207,7 +210,7 @@ export const ArticleCard = ({
       <div
         onClick={() => navigate(articleLink)}
         className={`w-full cursor-pointer relative bg-cover bg-center bg-no-repeat ${
-          article.attributes?.Prior && !minimize ? "pt-half" : "pt-full"
+          article?.attributes?.Prior && !minimize ? "pt-half" : "pt-full"
         }`}
         style={bgImageStyle(
           article.attributes?.Image?.data?.attributes?.url || ""

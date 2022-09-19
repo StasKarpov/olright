@@ -140,7 +140,7 @@ export default () => {
       >
         <Icon
           size={2}
-          className="text-black dark:text-white mb-[4rem] md:mb-0 "
+          className="text-black dark:text-white"
           path={mdiMagnify}
         />
       </div>

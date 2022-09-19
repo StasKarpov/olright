@@ -45,7 +45,7 @@ const Carousel = ({ articles }: { articles: Array<ArticleEntity> }) => {
       </div>
       <div className="flex items-center w-full ">
         <div
-          className="group cursor-pointer relative w-gallery h-[70rem] md:h-[50rem]  border-r sm:border-r-3 border-white border-solid  bg-cover bg-no-repeat bg-center"
+          className="group cursor-pointer relative w-gallery h-[70rem] md:h-[50rem]  border-r md:border-r-3 border-white border-solid  bg-cover bg-no-repeat bg-center"
           // style={bgImageStyle(
           //   currentArticle?.attributes?.Image?.data?.attributes?.url
           // )}
@@ -63,12 +63,12 @@ const Carousel = ({ articles }: { articles: Array<ArticleEntity> }) => {
             <div>{currentArticle?.attributes?.Subtitle}</div>
           </div>
         </div>
-        <div className="bg-transparent absolute flex flex-col items-center right-[2rem] md:right-[5rem] xl:right-[4rem] mb-[28rem] sm:mb-[20rem] md:mb-0 mt-24">
+        <div
+          onClick={() => setCurrentIndex((prev) => prev + 1)}
+          className="group cursor-pointer bg-transparent absolute flex flex-col items-center right-[2rem] md:right-[5rem] xl:right-[4rem] mb-[28rem] sm:mb-[20rem] md:mb-0 mt-24"
+        >
           <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-[7rem] md:h-[7rem] mb-24 ml-[21rem] sm:ml-[20rem] md:ml-[12rem]">
-            <div
-              onClick={() => setCurrentIndex((prev) => prev + 1)}
-              className="border sm:border-3 border-white border-solid text-white cursor-pointer hover:bg-white hover:text-black h-full flex justify-center items-center"
-            >
+            <div className="border md:border-3 border-white border-solid text-white cursor-pointer group-hover:bg-white group-hover:text-black h-full flex justify-center items-center">
               {" "}
               <Icon
                 style={{ strokeWidth: "1rem" }}
@@ -89,7 +89,7 @@ const Carousel = ({ articles }: { articles: Array<ArticleEntity> }) => {
               ))}
             </div>
           </div>
-          <div className="w-[28rem] h-[18rem] md:w-[30rem] md:h-[20rem] border sm:border-3 border-white border-solid ">
+          <div className="w-[28rem] h-[18rem] md:w-[30rem] md:h-[20rem] border md:border-3 border-white border-solid ">
             <div className="h-full w-full overflow-hidden flex bg-gray-300">
               {" "}
               <Image
@@ -103,8 +103,8 @@ const Carousel = ({ articles }: { articles: Array<ArticleEntity> }) => {
         </div>
       </div>
       <div className="h-14 flex relative">
-        <div className="w-gallery relative border-r sm:border-r-3  border-white border-solid"></div>
-        <div className="absolute w-full border-t sm:border-t-3  border-white border-solid right-0" />
+        <div className="w-gallery relative border-r md:border-r-3  border-white border-solid"></div>
+        <div className="absolute w-full border-t md:border-t-3  border-white border-solid right-0" />
       </div>
     </div>
   );

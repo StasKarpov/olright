@@ -115,14 +115,10 @@ const Article = ({
 };
 
 const ArticleHeader = ({ article }: { article: ArticleEntity }) => {
-  const minimizeHeader = article.attributes?.Special;
   const cropImage = article.attributes?.CropHeaderImage;
   const putHeadlineOnTop = article.attributes?.PutHeadlineOnTop;
 
-  console.log(putHeadlineOnTop);
-  console.log(minimizeHeader);
-
-  return minimizeHeader ? ( //Special article
+  return putHeadlineOnTop ? ( //Special article
     <>
       <div className="container p-0">
         <div className="text-white font-extrabold mx-0 md:mx-32 leading-20 mb-6 mt-20 text-7xl md:text-8xl">
@@ -143,12 +139,12 @@ const ArticleHeader = ({ article }: { article: ArticleEntity }) => {
   ) : (
     //not special article
     <>
-      {putHeadlineOnTop && (
+      {/* {putHeadlineOnTop && (
         <div className="container m-auto text-black dark:text-white font-extrabold leading-12 md:leading-20  ml-10 mb-6 text-5xl md:text-7xl">
           <div>{article.attributes?.Title}</div>
           <div>{article.attributes?.Subtitle}</div>
         </div>
-      )}
+      )} */}
       <div className="relative flex border-y-3 border-solid border-white relative w-full max-h-[70vh] overflow-hidden bg-black">
         <img
           className={cropImage ? "m-auto" : "w-full object-cover"}
@@ -156,22 +152,21 @@ const ArticleHeader = ({ article }: { article: ArticleEntity }) => {
             article.attributes?.Image?.data?.attributes?.url || ""
           )}
         />
-        {!putHeadlineOnTop && (
-          <>
-            <div
-              className="w-full h-full absolute top-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)",
-              }}
-            ></div>
 
-            <div className="absolute bottom-1 left-1 text-white font-extrabold leading-12 md:leading-20  ml-10 mb-6 text-5xl md:text-8xl">
-              <div>{article.attributes?.Title}</div>
-              <div>{article.attributes?.Subtitle}</div>
-            </div>
-          </>
-        )}
+        <>
+          <div
+            className="w-full h-full absolute top-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)",
+            }}
+          ></div>
+
+          <div className="absolute bottom-1 left-1 text-white font-extrabold leading-12 md:leading-20  ml-10 mb-6 text-5xl md:text-8xl">
+            <div>{article.attributes?.Title}</div>
+            <div>{article.attributes?.Subtitle}</div>
+          </div>
+        </>
       </div>
     </>
   );

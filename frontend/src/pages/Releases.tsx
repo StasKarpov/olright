@@ -18,7 +18,7 @@ export const ReleasesQuery = adopt({
     </Query>
   ),
   releasesQuery: ({ render }) => (
-    <Query query={RELEASES} variables={{ offset: 0, limit: 8 }}>
+    <Query darkLoader query={RELEASES} variables={{ offset: 0, limit: 8 }}>
       {render}
     </Query>
   ),
@@ -168,7 +168,8 @@ export const Release = ({
           className=" w-full h-[calc(100%+2px)] absolute bottom-[-2px]"
           style={{
             background: "rgba(0, 0, 0, 0.4)",
-            backdropFilter: "blur(15px)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
           }}
         >
           <div

@@ -41,7 +41,7 @@ const Carousel = ({ releases }: { releases: Array<ReleaseEntity> }) => {
       <div className="sm:container mx-4 sm:mx-auto flex justify-between items-center my-40">
         <div
           onClick={() => setCurrentIndex((prev) => prev - 1)}
-          className="w-32 h-32 border sm:border-3 border-white border-solid text-white cursor-pointer hover:bg-white hover:text-black"
+          className="w-32 h-32 border md:border-3 border-white border-solid text-white cursor-pointer hover:bg-white hover:text-black"
         >
           {" "}
           <Icon size={5} path={mdiChevronLeft} />
@@ -57,7 +57,7 @@ const Carousel = ({ releases }: { releases: Array<ReleaseEntity> }) => {
         </div>
         <div
           onClick={() => setCurrentIndex((prev) => prev + 1)}
-          className="w-32 h-32 border sm:border-3 border-white border-solid text-white cursor-pointer hover:bg-white hover:text-black"
+          className="w-32 h-32 border md:border-3 border-white border-solid text-white cursor-pointer hover:bg-white hover:text-black"
         >
           {" "}
           <Icon size={5} path={mdiChevronRight} />
@@ -76,7 +76,7 @@ const Carousel = ({ releases }: { releases: Array<ReleaseEntity> }) => {
         ))}
       </div>
       <div className="absolute left-[50%] w-[50vw]">
-        <hr className="mt-[7rem] md:mt-32 relative left-[-100%] border sm:border-t-3 sm:border-r-2 border-solid border-white w-[100vw]"></hr>
+        <hr className="mt-[7rem] md:mt-32 relative left-[-100%] border md:border-t-3 md:border-r-2 border-solid border-white w-[100vw]"></hr>
       </div>
       <div className="mt-24 w-full text-right text-12xl md:text-20xl text-white font-thin">
         <span className="relative before:content-['|'] before:absolute before:left-0 before:top-[-3.3rem] md:before:top-[-5.3rem]">

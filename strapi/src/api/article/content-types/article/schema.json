@@ -41,7 +41,8 @@
       "type": "boolean"
     },
     "Special": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "Date": {
       "type": "date"
